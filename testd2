@@ -1,0 +1,51 @@
+import RPi.GPIO as gpio
+import time
+
+gpio.setmode(gpio.BOARD)
+gpio.setwarnings(False)
+gpio.setup(13,gpio.OUT)
+gpio.setup(15,gpio.IN)
+gpio.setup(7,gpio.OUT)
+gpio.setup(11,gpio.OUT)
+
+while True:
+    time.sleep(1)
+    gpio.output(13, True)
+    time.sleep(0.00001)
+    gpio.output(13,False)
+    while gpio.input(15) == False:
+        pass
+    t1 = time.time()
+    while gpio.input(15) == True:
+        pass
+    t2 = time.time()
+    d = (t2-t1) * 34000 / 2
+    if d<70:
+        gpio.output(7,gpio.HIGH)
+        gpio.output(11,gpio.LOW)
+    else:
+        gpio.output(7,gpio.LOW)
+        gpio.output(11,gpio.HIGH)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+
